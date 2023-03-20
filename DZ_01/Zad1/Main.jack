@@ -1,0 +1,103 @@
+class Main 
+{
+    function void main ()
+    {
+        var String s1, s2, s3, s4, s5, s6;
+        let s1 = "((abc{}de)[])"; 
+        let s2 = "()()[]{}(){}"; 
+        let s3 = "([{}])"; 
+        let s4 = "([](({}){})[])[]"; 
+        let s5 = "(((){)})"; 
+        let s6 = "((){)}))"; 
+        
+        
+        
+        do Main.checkExpression(s1);
+        do Main.checkExpression(s2);
+        do Main.checkExpression(s3);
+        do Main.checkExpression(s4);
+        do Main.checkExpression(s5);
+        do Main.checkExpression(s6);
+        
+
+
+        do s1.dispose();
+        do s2.dispose();
+        do s3.dispose();
+        do s4.dispose();
+        do s5.dispose();
+        do s6.dispose();
+        
+        return;
+    }
+
+
+    function Boolean checkExpression (String s)
+    {
+        var Stack stack;
+        var int i, str_len, tmp_c, last_opened_bracket;
+        var Boolean to_return;        
+
+
+        let stack = Stack.new();
+        let str_len = s.length();
+        let i = 0;
+        while (i < str_len)
+        {
+            let tmp_c = s.charAt(i);
+            if (Main.isBracket(tmp_c))
+            {
+                
+                if (Main.isOpenBracket(tmp_c))
+                {
+                    do stack.push(s.charAt(i));
+                }
+                else
+                {
+                    if (stack.getSize() = 0){ 
+                        do Output.printString("False");
+                        do Output.println();
+                        return false;
+                    }else{}
+                    let last_opened_bracket = stack.pop();
+                    
+                    if (Math.abs(tmp_c - last_opened_bracket) > 2)
+                    {
+                        do Output.printString("False");
+                        do Output.println();
+                        return false;
+                    }
+                }
+            }
+            let i = i + 1;
+        }
+
+        do stack.dispose();
+        do Output.printString("True");
+        do Output.println();
+        return true;
+    }
+
+    function Boolean isBracket (int c) 
+    {
+        
+        if (c = 123){return true;}else{}
+        if (c = 91){return true;} else{}
+        if (c = 40) { return true;}else{}
+        if (c = 125) {return true;}else{}
+        if (c = 93) {return true;}else{}
+        if (c = 41){return true;}else{}
+        return false;
+        
+    }
+
+
+    function Boolean isOpenBracket (int c) 
+    {
+        
+        if (c = 123){return true;}else{}
+        if (c = 91){return true;} else{}
+        if (c = 40) { return true;}else{}
+        return false;        
+    }
+}

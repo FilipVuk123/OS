@@ -1,0 +1,11 @@
+class Main
+{
+
+    function void main(){
+        var Clock clock;
+
+        let clock = Clock.new();
+        do clock.render();
+        return;
+    }
+}

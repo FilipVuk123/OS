@@ -1,0 +1,67 @@
+class Main
+{
+    function void main () 
+    {
+        var QMatrix mat1, mat2, mat3, I1, testAdd, testMult, testScalar;
+
+        let mat1 = QMatrix.new(2);
+        let mat2 = QMatrix.new(3);
+        let mat3 = QMatrix.new(4);
+        let I1 = QMatrix.eye(3);
+        
+        // do mat1.print();
+        // do Output.println();
+        // do mat2.print();
+        // do Output.println();
+        // do mat3.print();
+        // do Output.println();
+
+        do mat2.setElem(0, 1, 4);
+        do mat2.setElem(1, 2, 2);
+        do mat2.setElem(2, 1, 2);
+        
+
+        do I1.setElem(0, 1, 4);
+        do I1.setElem(1, 2, 2);
+        do I1.setElem(2, 1, 2);
+        
+        do I1.print();
+        do Output.println();
+        // do mat2.print();
+        // do Output.println();
+        // do Output.println();
+        // do Output.printInt(I1.norm());
+        // do Output.println();
+        
+        let testAdd = mat2.add(I1);
+        do Output.println();
+        do Output.printString("testAdd");
+        do Output.println();
+        do testAdd.print();
+
+        let testMult = I1.multQMat(mat2);
+        do Output.println();
+        do Output.printString("testMult");
+        do Output.println();
+        do testMult.print();
+
+
+        let testScalar = I1.multScalar(5);
+        do Output.println();
+        do Output.printString("testScalar");
+        do Output.println();
+        do testScalar.print();
+
+
+
+        do mat1.dispose();
+        do mat2.dispose();
+        do mat3.dispose();
+        do testAdd.dispose();
+        do testScalar.dispose();
+        do testAdd.dispose();
+        do I1.dispose();
+
+        return ;
+    }
+}

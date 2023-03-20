@@ -1,0 +1,243 @@
+class QMatrix
+{
+    field Array container;
+    field int n;
+
+    constructor QMatrix new(int N)
+    {
+        var int j, i;
+        var Array A;
+
+        let n = N;
+
+        let container = Array.new(n);
+
+        let i = 0;
+        
+        while (i < n)
+        {
+            let A = Array.new(n);
+            let container[i] = A;
+            let i = i+1;
+        }
+
+        let i = 0;
+        while (i < N){
+            let j = 0;
+            while (j < N){
+                do setElem(i, j, 0);
+                let j = j + 1;
+            }
+            let i = i + 1;
+        }
+        
+        return this;
+    }
+
+    method int getN(){
+        return n;
+    }
+
+    method Array getContainer(){
+        return container;
+    }
+
+    method void setElem(int i, int j, int value)
+    {
+        var Array A;
+      
+        let A = container[i];
+        let A[j] = value;
+       
+        return;
+    }
+     method int getElem(int i, int j)
+     {
+        var Array A;
+        var int elem;
+      
+        let A = container[i];
+        let elem = A[j];
+       
+        return elem;
+    }
+
+
+    method QMatrix add(QMatrix A){
+        var QMatrix to_return;
+        var int i, j, c, An, n;
+        var Array A_cont, this_cont_i, A_cont_i;
+        let An = A.getN();
+        let n = getN();
+        if (An = n){
+
+            let A_cont = A.getContainer();
+
+            let to_return = QMatrix.new(n);
+
+
+            let i = 0;
+            while (i < n)
+            {
+                let A_cont_i = A_cont[i];
+                let this_cont_i = container[i];
+
+                let j = 0;
+                while (j < n)
+                {
+                    let c = A_cont_i[j] + this_cont_i[j];
+                    do to_return.setElem(i,j,c);
+                    let j = j + 1;
+                }
+                let i = i + 1;
+            }
+            return to_return;
+        }else{
+            do Output.printString("Size error in Add");
+            return this;
+        }
+    }
+
+
+    method QMatrix multScalar(int scalar){
+        var QMatrix to_return;
+        var int i, j, c;
+        var Array this_cont_i;
+
+        let to_return = QMatrix.new(n);
+
+        let i = 0;
+        while (i < n){
+            let this_cont_i = container[i];
+
+            let j = 0;
+            while (j < n){
+                let c = this_cont_i[j] * scalar;
+                do to_return.setElem(i,j,c);
+                let j = j + 1;
+            }
+            let i = i + 1;
+        }
+        return to_return;                                                                                                                                                                                                                                                                                                                                                                                                                  
+    }
+
+
+    method QMatrix multQMat(QMatrix A){
+        var QMatrix to_return;
+        var int i, j, k, sum, An, n;
+        var Array A_cont, this_cont_i, A_cont_k;
+
+        let An = A.getN();
+        let n = getN();
+        if (An = n){
+
+            let A_cont = A.getContainer();
+
+            let to_return = QMatrix.new(n);
+
+
+            let i = 0;
+            while (i < n)
+            {
+
+                let j = 0;
+                while (j < n)
+                {
+                    let this_cont_i = container[i];
+                    let k = 0;
+                    let sum = 0;
+                    while (k < n){
+                        let A_cont_k = A_cont[k];
+                        let sum = sum + (this_cont_i[k]*A_cont_k[j]);
+                        let k = k + 1;
+                    }
+
+                    do to_return.setElem(i,j,sum);
+                    let j = j + 1;
+                }
+                let i = i + 1;
+            }
+            return to_return;                                                                                                                                                                                                                                                                                                                                                                                                                      
+        }else{
+            do Output.printString("Size error in multQMat");
+            return this;
+        }
+    }
+
+    method void print(){
+        var int i, j;
+
+        let i = 0;
+        while (i < n){
+            let j = 0;
+            while (j < n){
+
+                do Output.printInt(getElem(i,j));
+                do Output.printString(" ");
+
+                let j = j + 1;
+            }
+            do Output.println();
+            let i = i + 1;
+        }
+        do Output.println();
+        return;
+    }
+
+    method void dispose()
+    {
+        var Array temp;
+        var int i;
+        let i = 0;
+        while (i < n){
+            let temp = container[i];
+            do temp.dispose();
+            let i = i + 1;
+        }
+        do container.dispose();        
+        return;
+    }
+
+    method int norm(){
+        var int norm;
+        var int i, j, sum;
+
+        let norm = 0;
+        let sum = 0;
+
+        let i = 0;
+        while(i < n)
+        {
+            let j = 0;
+            while(j < n)
+            {
+                let sum = sum + (getElem(i,j) * getElem(i,j));
+                let j = j + 1;
+            }
+            let i = i + 1;
+        }
+        let norm = Math.sqrt(sum);
+        return norm;
+
+    }
+
+    function QMatrix eye(int n){
+        var QMatrix to_return;
+        var Array temp;
+        var int i,j;
+        
+        let to_return = QMatrix.new(n);
+        let i = 0;
+        while (i < n){
+            let j = 0;
+            while (j < n){
+                if (i = j){
+                    do to_return.setElem(i, j, 1);
+                }
+                let j = j + 1;
+            }
+            let i = i + 1;
+        }
+        return to_return;
+    }
+}

@@ -1,0 +1,163 @@
+class Clock
+{
+    field int size, offset, hour_line_len, small_hour_line_length, c;
+    field int hour, minute;
+    constructor Clock new()
+    {
+        // set constants
+        let size = 160;
+        let offset = 50;
+        let hour_line_len = 10;
+        let small_hour_line_length = hour_line_len/2;
+        let c = offset + (size/2);
+        return this;
+    }
+
+
+    method void render_clock()
+    {  
+        var int x, y, step; 
+        // Draw rectangle
+        do Screen.drawLine(offset, offset,size + offset, offset);
+        do Screen.drawLine(offset, offset,offset, size + offset);
+        do Screen.drawLine(size + offset, offset, size + offset, size + offset);
+        do Screen.drawLine(offset, size + offset, size + offset, size + offset);
+        
+        // draw ticks for 12, 3, 6, 9
+        do Screen.drawLine(offset + (size/2), offset, offset + (size/2), offset + hour_line_len);
+        do Screen.drawLine(offset, offset + (size/2), offset + hour_line_len, offset + (size/2));
+        do Screen.drawLine(offset + size, offset + (size/2), offset + size - hour_line_len, offset + (size/2));
+        do Screen.drawLine(offset + (size/2), offset + size, offset + (size/2), offset + size - hour_line_len);
+
+        // draw ticks for other hours
+        do Screen.drawLine(offset + (size*3/16), offset, offset + (size*3/16), offset + small_hour_line_length);
+        do Screen.drawLine(offset + (size*13/16), offset, offset + (size*13/16), offset + small_hour_line_length);
+
+        do Screen.drawLine(offset, offset + (size*3/16), offset + small_hour_line_length, offset + (size*3/16));
+        do Screen.drawLine(offset, offset + (size*13/16), offset + small_hour_line_length, offset + (size*13/16));
+
+        do Screen.drawLine(offset + size, offset + (size*3/16), offset + size - small_hour_line_length, offset + (size*3/16));
+        do Screen.drawLine(offset + size, offset + (size*13/16), offset + size - small_hour_line_length, offset + (size*13/16));
+
+        do Screen.drawLine(offset + (size*3/16), offset + size, offset + (size*3/16), offset + size - small_hour_line_length);
+        do Screen.drawLine(offset + (size*13/16), offset + size, offset + (size*13/16), offset + size - small_hour_line_length);
+
+
+        // draw minute hand
+        let step = size / 15;
+
+        if (minute > 52){
+            let y = offset;
+            let x = offset + (size/2) - ((60 - minute)*step);
+        }
+
+        if (minute < 8){
+            let y = offset;
+            let x = offset + (size/2) + (minute*step);
+        }
+
+        if ((minute > 7) & (minute < 23)){
+            let x = offset + size;
+            let y = offset + (size/2) - ((15 - minute) * step);
+        }
+
+        if ((minute > 22) & (minute < 38)){
+            let y = offset + size;
+            let x = offset + (size/2) + ((30 - minute) * step);
+        }
+
+        if ((minute > 37) & (minute < 53)){
+            let x = offset;
+            let y = offset + (size/2) + ((45 - minute) * step);
+        }
+        // render minute hand
+        do Screen.drawLine(c,c,x,y);
+
+
+        // draw hour hand
+        if ((hour = 11) | (hour = 0) | (hour = 1)){
+            let y = offset;
+            if (hour = 11){
+                let x = offset + (size *3/16);
+            }
+            if (hour = 0){
+                let x = offset + (size / 2);
+            }
+            if (hour = 1){
+                let x = offset + (size *13/16);
+            }
+        }
+
+        if ((hour = 2) | (hour = 3) | (hour = 4)){
+            let x = offset + size;
+            if (hour = 2){
+                let y = offset + (size *3/16);
+            }
+            if (hour = 3){
+                let y = offset + (size / 2);
+            }
+            if (hour = 4){
+                let y = offset + (size *13/16);
+            }
+        }
+
+        if ((hour = 5) | (hour = 6) | (hour = 7)){
+            let y = offset + size;
+            if (hour = 7){
+                let x = offset + (size *3/16);
+            }
+            if (hour = 6){
+                let x = offset + (size / 2);
+            }
+            if (hour = 5){
+                let x = offset + (size *13/16);
+            }
+        }
+
+        if ((hour = 8) | (hour = 9) | (hour = 10)){
+            let x = offset;
+            if (hour = 10){
+                let y = offset + (size *3/16);
+            }
+            if (hour = 9){
+                let y = offset + (size / 2);
+            }
+            if (hour = 8){
+                let y = offset + (size *13/16);
+            }
+        }
+        // render hour hand
+        do Screen.drawLine(c,c,x,y);
+        
+        return;
+    }
+
+    method void render()
+    {
+        let hour = 0; 
+        let minute = 0;
+
+        while (true){
+
+            if(minute = 60)
+            {
+                let hour = hour + 1;
+                let minute = 0;
+            }
+            
+            if(hour = 12)
+            {
+                let hour = 0;
+            }
+            
+            do render_clock();
+            let minute = minute + 1;
+            // do Sys.wait(1000 * 60); 
+            do Sys.wait(100); // testing
+
+            do Screen.clearScreen();
+        }
+
+        return;
+    }
+}
