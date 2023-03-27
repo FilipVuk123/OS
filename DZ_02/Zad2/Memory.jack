@@ -71,6 +71,29 @@ class Memory
     /** De-allocates the given object and frees its space. */
     function void deAlloc(int object)
     {
+        var Array block;
+
+        let block = object - 2;
+        let block[1] = freeList;
+        
+        let freeList = block;
+        
         return;
     }    
+
+    function void deFrag()
+    {
+        return;
+    }
+    function void memcpy(int dest, int src, int size)
+    {
+        var int i, value;
+        let i = 0;
+        while (i < size){
+            let value = Memory.peek(src + i);
+            do Memory.poke(dest + i, value);
+            let i = i + 1;
+        }
+        return;
+    }
 }

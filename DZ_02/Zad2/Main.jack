@@ -2,8 +2,70 @@ class Main
 {
     function void main ()
     {
+        // var Array src, dest;
+        // var int i;
+
+        // let src = Array.new(5);
+        // let dest = Array.new(10);
+
+        // let dest[0] = 10;
+        // let dest[1] = 10;
+        // let dest[2] = 10;
+        // let dest[3] = 10;
+        // let dest[4] = 10;
+        // let dest[5] = 10;
+        // let dest[6] = 10;
+        // let dest[7] = 10;
+        // let dest[8] = 10;
+        // let dest[9] = 10;
+
+        // let src[0] = 1;
+        // let src[1] = 2;
+        // let src[2] = 3;
+        // let src[3] = 4;
+        // let src[4] = 5;
+        
+        // let i = 0;
+        // while(i < 5)
+        // {
+        //     do Output.printInt(src[i]);
+        //     do Output.printString(", ");
+            
+        //     let i = i + 1;
+        // }
+        // do Output.println();
+        // let i = 0;
+        // while(i < 10)
+        // {
+        //     do Output.printInt(dest[i]);
+        //     do Output.printString(", ");
+        //     let i = i + 1;
+        // }
+        // do Output.println();
 
 
+        // do Memory.memcpy(dest, src, 4);
+
+        // let i = 0;
+        // while(i < 5)
+        // {
+        //     do Output.printInt(src[i]);
+        //     do Output.printString(", ");
+            
+        //     let i = i + 1;
+        // }
+        // do Output.println();
+        // let i = 0;
+        // while(i < 10)
+        // {
+        //     do Output.printInt(dest[i]);
+        //     do Output.printString(", ");
+        //     let i = i + 1;
+        // }
+        // do Output.println();
+
+        // do src.dispoze();
+        // do dest.dispoze();
 
 
         return ;
