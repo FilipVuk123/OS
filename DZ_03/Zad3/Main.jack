@@ -2,6 +2,9 @@ class Main
 {
     function void main() 
     {
+        var Tetris tetris;
+        let tetris = Tetris.new();
+        do tetris.dispose();
         return;
     }
 }
